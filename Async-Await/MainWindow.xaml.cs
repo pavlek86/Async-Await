@@ -40,9 +40,16 @@ namespace Async_Await
             
         }
 
-        private void executeAsync_Click(object sender, RoutedEventArgs e)
+        private async void executeAsync_Click(object sender, RoutedEventArgs e)
         {
-            throw new Exception("Not implemented");
+            var watch = Stopwatch.StartNew();
+
+            await RunDownloadAsync();
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            resultWindow.Text += $"Total execution time: { elapsedMs }";
         }
 
         private List<string> GetWebsites()
@@ -67,6 +74,17 @@ namespace Async_Await
             foreach (string site in websites)
             {
                 WebsiteDataModel results = DownloadWebsite(site);
+                ReportWebsiteInfo(results);
+            }
+        }
+
+        private async Task RunDownloadAsync()
+        {
+            List<string> websites = GetWebsites();
+
+            foreach (string site in websites)
+            {
+                WebsiteDataModel results = await Task.Run(() => DownloadWebsite(site));
                 ReportWebsiteInfo(results);
             }
         }
