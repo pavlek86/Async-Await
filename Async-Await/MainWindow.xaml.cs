@@ -52,6 +52,18 @@ namespace Async_Await
             resultWindow.Text += $"Total execution time: { elapsedMs }";
         }
 
+        private async void executeAsyncParallel_Click(object sender, RoutedEventArgs e)
+        {
+            var watch = Stopwatch.StartNew();
+
+            await RunDownloadParallelAsync();
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            resultWindow.Text += $"Total execution time: { elapsedMs }";
+        }
+
         private List<string> GetWebsites()
         {
             List<string> output = new List<string>();
@@ -89,6 +101,24 @@ namespace Async_Await
             }
         }
 
+        private async Task RunDownloadParallelAsync()
+        {
+            List<string> websites = GetWebsites();
+            List<Task<WebsiteDataModel>> tasks = new List<Task<WebsiteDataModel>>();
+
+            foreach (string site in websites)
+            {
+                tasks.Add(Task.Run(() => DownloadWebsite(site)));
+            }
+
+            var results = await Task.WhenAll(tasks);
+
+            foreach (var item in results)
+            {
+                ReportWebsiteInfo(item);
+            }
+        }
+
         private WebsiteDataModel DownloadWebsite(string websiteURL)
         {
             WebsiteDataModel output = new WebsiteDataModel();
@@ -104,5 +134,7 @@ namespace Async_Await
         {
             resultWindow.Text += $"{ data.WebsiteUrl } downloaded: { data.WebsiteData.Length } characters long. { Environment.NewLine }";
         }
+
+        
     }
 }

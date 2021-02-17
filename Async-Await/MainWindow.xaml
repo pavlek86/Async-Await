@@ -9,8 +9,9 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" TextWrapping="Wrap" Text="Async/Await Demo" VerticalAlignment="Top" Width="772" FontSize="24"/>
         <Button x:Name="executeSync" Content="Normal (synchronous) execution" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="772" Height="40" Click="executeSync_Click"/>
-        <TextBlock x:Name="resultWindow" HorizontalAlignment="Left" Margin="10,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="269" Width="772"/>
+        <TextBlock x:Name="resultWindow" HorizontalAlignment="Left" Margin="10,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="224" Width="772"/>
         <Button x:Name="executeAsync" Content="Asynchronous execution" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="772" Height="40" Click="executeAsync_Click"/>
-        
+        <Button x:Name="executeAsyncParallel" Content="Asynchronous parellel execution" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Width="772" Height="40" Click="executeAsyncParallel_Click"/>
+
     </Grid>
 </Window>
